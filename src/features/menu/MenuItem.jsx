@@ -1,9 +1,11 @@
+import { formatCurrency } from '../../utils/helpers';
+
 function MenuItem({ pizza }) {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
 
   return (
     <li>
-      <img src={imageUrl} alt={name} />
+      <img src={imageUrl} alt={name} draggable={false} />
       <div>
         <p>{name}</p>
         <p>{ingredients.join(', ')}</p>
