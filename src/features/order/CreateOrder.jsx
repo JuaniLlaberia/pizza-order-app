@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Form } from 'react-router-dom';
 import { createOrder } from '../../services/apiRestaurant';
 import { redirect, useNavigation, useActionData } from 'react-router-dom';
+import Button from '../../ui/Button';
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = str =>
@@ -44,48 +45,60 @@ function CreateOrder() {
   const cart = fakeCart;
 
   return (
-    <div>
-      <h2>Ready to order? Let's go!</h2>
+    <div className='px-4 py-6'>
+      <h2 className='text-xl font-semibold mb-8'>Ready to order? Let's go!</h2>
       {/* We are going to use the custom Form component from react router dom, with the method of
       POST in order to write in the API */}
       <Form method='POST'>
-        <div>
-          <label>First Name</label>
-          <input type='text' name='customer' required />
+        <div className='mb-5 flex gap-2 flex-col md:flex-row md:items-center'>
+          <label className='md:basis-40'>First Name</label>
+          <input className='input grow' type='text' name='customer' required />
         </div>
 
-        <div>
-          <label>Phone number</label>
-          <div>
-            <input type='tel' name='phone' required />
-          </div>
-          {formError?.phone && <p>{formError.phone}</p>}
-        </div>
-
-        <div>
-          <label>Address</label>
-          <div>
-            <input type='text' name='address' required />
+        <div className='mb-5 flex gap-2 flex-col md:flex-row md:items-center'>
+          <label className='md:basis-40'>Phone number</label>
+          <div className='grow'>
+            <input className='input w-full' type='tel' name='phone' required />
+            {formError?.phone && (
+              <p className='text-xs mt-2 text-red-600 bg-red-200 p-2 rounded-md'>
+                {formError.phone}
+              </p>
+            )}
           </div>
         </div>
 
-        <div>
+        <div className='mb-5 flex gap-2 flex-col md:flex-row md:items-center'>
+          <label className='md:basis-40'>Address</label>
+          <div className='grow'>
+            <input
+              className='input w-full'
+              type='text'
+              name='address'
+              required
+            />
+          </div>
+        </div>
+
+        <div className='mb-12 flex items-center gap-5'>
           <input
+            className='h-6 w-6 accent-yellow-400 focus:outline-none focus:ring focus:ring-yellow-400 focus:ring-offset-2 focus:ring-opacity-30'
             type='checkbox'
             name='priority'
             id='priority'
             // value={withPriority}
             // onChange={(e) => setWithPriority(e.target.checked)}
           />
-          <label htmlFor='priority'>Want to yo give your order priority?</label>
+          <label htmlFor='priority' className='font-medium'>
+            Want to yo give your order priority?
+          </label>
         </div>
 
         <div>
           {/* Small trick to see the cart */}
           <input type='hidden' name='cart' value={JSON.stringify(cart)} />
-          <button disabled={isSubmitting}>
-            {isSubmitting ? 'Placing order...' : 'Order now'}
-          </button>
+          <Button disabled={isSubmitting} type='primary'>
+            {isSubmitting ? 'Submitting order...' : 'Order now'}
+          </Button>
         </div>
       </Form>
     </div>

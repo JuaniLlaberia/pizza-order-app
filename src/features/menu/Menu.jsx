@@ -6,7 +6,7 @@ function Menu() {
   //New Router API fetching: 3rd we get the data in the Page using a hook
   const menu = useLoaderData();
   return (
-    <ul>
+    <ul className='divide-y divide-stone-200 px-2'>
       {menu?.map(pizza => (
         <MenuItem key={pizza.id} pizza={pizza} />
       ))}
